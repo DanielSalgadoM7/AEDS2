@@ -1,0 +1,164 @@
+/*Crie uma classe Jogador seguindo todas as regras apresentadas no slide unidade01g_conceitosBasicos_introducaoOO.pdf. 
+Sua classe terá os atributos privados id(int), nome(String), altura(int), peso(int), universidade (String), AnoNascimento (int), 
+CidadeNascimento(String), EstadoNascimento(String). Sua classe também terá pelo menos dois construtores, e os métodos gets, sets, 
+clone, imprimir e ler.
+
+
+O método imprimir mostra os atributos do registro (ver cada linha da saída padrão) e o ler lê os atributos de um registro. 
+Atenção para o arquivo de entrada, pois em alguns registros faltam valores e esse foi substituído pelo valor “nao informado”.
+
+
+A entrada padrão é composta por várias linhas e cada uma contém uma string indicando o id do jogador a ser lido. A última 
+linha da entrada contém a palavra FIM. A saída padrão também contém várias linhas, uma para cada registro contido em uma linha da 
+entrada padrão.* */
+import java.util.Scanner;
+
+public class Jogadores{
+    private int id;
+    private String nome;
+    private int altura;
+    private int peso;
+    private String universidade;
+    private int AnoNascimento;
+    private String CidadeNascimento;
+    private String EstadoNascimento;
+
+    //construtor sem parâmetro
+    public Jogadores(){
+        this.id = -1;
+        this.nome = "";
+        this.altura = -1;
+        this.peso = -1;
+        this.universidade = "";
+        this.AnoNascimento = -1;
+        this.CidadeNascimento = "";
+        this.EstadoNascimento = "";
+    }
+
+    
+    //construtor com parâmetro
+    public Jogadores(int id, String nome, int altura, int peso, String universidade, int AnoNascimento, String CidadeNascimento, 
+    String EstadoNascimento){
+        this.id = id;
+        this.nome = nome;
+        this.altura = altura;
+        this.peso = peso;
+
+        if(universidade != null){
+            this.universidade = universidade;
+        }else{
+            this.universidade = "nao informado";
+        }
+
+        this.AnoNascimento = AnoNascimento;
+
+        if(CidadeNascimento != null){
+            this.CidadeNascimento = CidadeNascimento;
+        }else{
+            this.CidadeNascimento = "nao informado";
+        }
+
+        if(EstadoNascimento != null){
+            this.EstadoNascimento = EstadoNascimento;
+        }else{
+            this.EstadoNascimento = "nao informado";
+        }
+    }
+
+
+    //getters
+    public int getId(){
+        return id;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public int getAltura(){
+        return altura;
+    }
+
+    public int getPeso(){
+        return peso;
+    }
+
+    public String getUniversidade(){
+        return universidade;
+    }
+
+    public int getAnoNascimento(){
+        return AnoNascimento;
+    }
+
+    public String getCidadeNascimento(){
+        return CidadeNascimento;
+    }
+
+    public String getEstadoNascimento(){
+        return EstadoNascimento;
+    }
+
+
+    //getters
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+
+    public void setAltura(int altura){
+        this.altura = altura;
+    }
+
+    public void setPeso(int peso){
+        this.peso = peso;
+    }
+
+    public void setUniversidade(String universidade){
+        this.universidade = universidade;
+    }
+
+    public void setAnoNascimento(int AnoNascimento){
+        this.AnoNascimento = AnoNascimento;
+    }
+
+    public void setCidadeNascimento(String CidadeNascimento){
+        this.CidadeNascimento = CidadeNascimento;
+    }
+
+    public void setEstadoNascimento(String EstadoNascimento){
+        this.EstadoNascimento = EstadoNascimento;
+    }
+
+    //método de clonar
+    public Jogadores Clonar(Jogadores jogador){
+        Jogadores clone = new jogador (jogador.getId(), jogador.getNome(), jogador.getAltura(), jogador.getPeso(), 
+        jogador.getUniversidade(), jogador.getAnoNascimento(), jogador.getCidadeNascimento(), jogador.getEstadoNascimento());
+        return clone;
+    }
+
+
+    //método de imprimir
+    public static void Imprimir(Jogadores jogador){
+        System.out.println("[" + jogador.getId() + " ## " + jogador.getNome() + " ## " + jogador.getAltura() + " ## " + 
+        jogador.getPeso() + " ## " + jogador.getUniversidade() + " ## " + jogador.getAnoNascimento() + " ## " + 
+        jogador.getCidadeNascimento() + " ## " + jogador.getEstadoNascimento() + "]");
+    }
+
+    public static void main(String[] args) {
+        String id;
+        Scanner sc = new Scanner(System.in); 
+        id = sc.next();
+
+        if(id.equals("FIM")){
+            break;
+        }
+
+    }
+}
+A entrada padrão é composta por várias linhas e cada uma contém uma string indicando o id do jogador a ser lido. A última 
+linha da entrada contém a palavra FIM. A saída padrão também contém várias linhas, uma para cada registro contido em uma linha 
+da entrada padrão.* */
