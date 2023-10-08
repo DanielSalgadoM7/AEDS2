@@ -1,0 +1,237 @@
+/*Crie uma classe Jogador seguindo todas as regras apresentadas no slide unidade01g_conceitosBasicos_introducaoOO.pdf. 
+Sua classe terá os atributos privados id(int), nome(String), altura(int), peso(int), universidade (String), anoNascimento (int), 
+cidadeNascimento(String), estadoNascimento(String). Sua classe também terá pelo menos dois construtores, e os métodos gets, sets, 
+clone, imprimir e ler.
+
+
+O método imprimir mostra os atributos do registro (ver cada linha da saída padrão) e o ler lê os atributos de um registro. 
+Atenção para o arquivo de entrada, pois em alguns registros faltam valores e esse foi substituído pelo valor “nao informado”.
+
+
+A entrada padrão é composta por várias linhas e cada uma contém uma string indicando o id do jogador a ser lido. A última 
+linha da entrada contém a palavra FIM. A saída padrão também contém várias linhas, uma para cada registro contido em uma linha da 
+entrada padrão. */
+
+//Daniel Salgado Magalhães - 821429
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+
+class TP2Q1{
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Jogadores jogador = new Jogadores();
+        String linha;
+
+        linha = sc.nextLine();
+
+        while(Fim(linha)==false){
+            int id = Integer.parseInt(linha);
+            jogador.Ler(id);
+            jogador.Imprimir();
+            linha = sc.nextLine();
+        }
+        sc.close();
+    }
+
+    private static boolean Fim(String str) {
+        boolean resp = false;
+
+        if(str.charAt(0) == 'F' && str.charAt(1) == 'I' && str.charAt(2) == 'M'){
+            resp = true;
+        }
+
+        return resp;
+    }
+}
+
+class Jogadores{
+    private int id;
+    private String nome;
+    private int altura;
+    private int peso;
+    private String universidade;
+    private int anoNascimento;
+    private String cidadeNascimento;
+    private String estadoNascimento;
+
+    //construtor sem parâmetro
+    public Jogadores(){
+        this.id = -1;
+        this.nome = "";
+        this.altura = -1;
+        this.peso = -1;
+        this.universidade = "";
+        this.anoNascimento = -1;
+        this.cidadeNascimento = "";
+        this.estadoNascimento = "";
+    }
+
+    //construtor com parâmetro
+    public Jogadores(int id, String nome, int altura, int peso, int anoNascimento, String universidade, String cidadeNascimento, 
+    String estadoNascimento){
+        this.id = id;
+        this.nome = nome;
+        this.altura = altura;
+        this.peso = peso;
+
+        if(universidade != null){
+            this.universidade = universidade;
+        }else{
+            this.universidade = "nao informado";
+        }
+
+        this.anoNascimento = anoNascimento;
+
+        if(cidadeNascimento != null){
+            this.cidadeNascimento = cidadeNascimento;
+        }else{
+            this.cidadeNascimento = "nao informado";
+        }
+
+        if(estadoNascimento != null){
+            this.estadoNascimento = estadoNascimento;
+        }else{
+            this.estadoNascimento = "nao informado";
+        }
+    }
+
+    //getters
+    public int getId(){
+        return id;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public int getAltura(){
+        return altura;
+    }
+
+    public int getPeso(){
+        return peso;
+    }
+
+    public String getUniversidade(){
+        return universidade;
+    }
+
+    public int getanoNascimento(){
+        return anoNascimento;
+    }
+
+    public String getcidadeNascimento(){
+        return cidadeNascimento;
+    }
+
+    public String getestadoNascimento(){
+        return estadoNascimento;
+    }
+
+    //setters
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+
+    public void setAltura(int altura){
+        this.altura = altura;
+    }
+
+    public void setPeso(int peso){
+        this.peso = peso;
+    }
+
+    public void setUniversidade(String universidade){
+        this.universidade = universidade;
+    }
+
+    public void setAnoNascimento(int anoNascimento){
+        this.anoNascimento = anoNascimento;
+    }
+
+    public void setCidadeNascimento(String cidadeNascimento){
+        this.cidadeNascimento = cidadeNascimento;
+    }
+
+    public void setEstadoNascimento(String estadoNascimento){
+        this.estadoNascimento = estadoNascimento;
+    }
+
+    //função de clonar
+     public Jogadores clone() {
+        Jogadores clone = new Jogadores();
+
+        clone.setId(this.id);
+        clone.setNome(this.nome);
+        clone.setAltura(this.altura);
+        clone.setPeso(this.peso);
+        clone.setUniversidade(this.universidade);
+        clone.setAnoNascimento(this.anoNascimento);
+        clone.setCidadeNascimento(this.cidadeNascimento);
+        clone.setEstadoNascimento(this.estadoNascimento);
+
+        return clone;
+    }
+
+    //função de imprimir
+    public void Imprimir(){
+        System.out.println("[" + id + " ## " + nome + " ## " + altura + " ## " + peso + " ## " + anoNascimento + " ## " + universidade + " ## " + 
+        cidadeNascimento + " ## " + estadoNascimento + "]");
+    }
+
+    //função de ler
+    public void Ler(int id){
+
+        try {
+            FileReader fr = new FileReader("/tmp/players.csv");
+            BufferedReader br = new BufferedReader(fr);
+            String texto;
+            String[] linhas;
+            texto = br.readLine();
+
+            for(int i = 0; i < id; i++){
+                texto = br.readLine();
+            }
+
+            texto = br.readLine();
+
+            linhas = texto.split(",");
+                            this.id = Integer.parseInt(linhas[0]);
+                            this.nome = linhas[1];
+                            this.altura = Integer.parseInt(linhas[2]);
+                            this.peso = Integer.parseInt(linhas[3]);
+
+                            //teste
+                            if (linhas.length == 4){
+                            this.universidade = "nao informado";
+                            this.anoNascimento = Integer.parseInt(linhas[4]);
+                            } else{
+                                this.universidade = linhas[4];
+                                this.anoNascimento = Integer.parseInt(linhas[5]);
+                            }
+                            
+                            if(linhas.length == 6){
+                                this.cidadeNascimento = "nao informado";
+                                this.estadoNascimento = "nao informado";
+                            } else {
+                                this.cidadeNascimento = linhas[6];
+                                this.estadoNascimento = linhas[7];
+                            }
+
+            br.close();
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+}
