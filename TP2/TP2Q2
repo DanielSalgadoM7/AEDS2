@@ -1,0 +1,176 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Estrutura para jogador
+struct Jogador {
+    int id;
+    char nome[100];
+    int altura;
+    int peso;
+    int anoNascimento;
+    char universidade[100];
+    char cidadeNascimento[100];
+    char estadoNascimento[100];
+};
+
+//getters
+int getId(struct Jogador jogador) {
+    return jogador.id;
+}
+
+char *getNome(struct Jogador jogador) {
+    return jogador.nome;
+}
+
+int getAltura(struct Jogador jogador) {
+    return jogador.altura;
+}
+
+int getPeso(struct Jogador jogador) {
+    return jogador.peso;
+}
+
+int getAnoNascimento(struct Jogador jogador) {
+    return jogador.anoNascimento;
+}
+
+char *getUniversidade(struct Jogador jogador) {
+    return jogador.universidade;
+}
+
+char *getCidadeNascimento(struct Jogador jogador) {
+    return jogador.cidadeNascimento;
+}
+
+char *getEstadoNascimento(struct Jogador jogador) {
+    return jogador.estadoNascimento;
+}
+
+//setters
+void setId(struct Jogador *jogador, int id) {
+    jogador->id = id;
+}
+
+void setNome(struct Jogador *jogador, const char *nome) {
+    strncpy(jogador->nome, nome, sizeof(jogador->nome));
+    jogador->nome[sizeof(jogador->nome) - 1] = '\0'; // Garante que a string seja terminada corretamente
+}
+
+void setAltura(struct Jogador *jogador, int altura) {
+    jogador->altura = altura;
+}
+
+void setPeso(struct Jogador *jogador, int peso) {
+    jogador->peso = peso;
+}
+
+void setAnoNascimento(struct Jogador *jogador, int anoNascimento) {
+    jogador->anoNascimento = anoNascimento;
+}
+
+void setUniversidade(struct Jogador *jogador, const char *universidade) {
+    if (strlen(universidade) == 0) {
+        strcpy(jogador->universidade, "nao informado");
+    } else {
+        strncpy(jogador->universidade, universidade, sizeof(jogador->universidade));
+        jogador->universidade[sizeof(jogador->universidade) - 1] = '\0';
+    }
+}
+
+void setCidadeNascimento(struct Jogador *jogador, const char *cidadeNascimento) {
+    strncpy(jogador->cidadeNascimento, cidadeNascimento, sizeof(jogador->cidadeNascimento));
+    jogador->cidadeNascimento[sizeof(jogador->cidadeNascimento) - 1] = '\0'; 
+}
+
+void setEstadoNascimento(struct Jogador *jogador, const char *estadoNascimento) {
+    strncpy(jogador->estadoNascimento, estadoNascimento, sizeof(jogador->estadoNascimento));
+    jogador->estadoNascimento[sizeof(jogador->estadoNascimento) - 1] = '\0'; 
+}
+
+//função pra imprimir
+void Imprimir(struct Jogador jogador) {
+    printf("[%d ## %s ## %d ## %d ## %d ## %s ## %s ## %s]\n",
+           jogador.id, jogador.nome, jogador.altura, jogador.peso, jogador.anoNascimento,
+           jogador.universidade, jogador.cidadeNascimento, jogador.estadoNascimento);
+}
+
+//função pra ler 
+void Ler(struct Jogador *jogador, int id) {
+    FILE *arquivo = fopen("/tmp/players.csv", "r");
+    if (arquivo == NULL) {
+        return;
+    }
+
+    char linha[1000];
+    int linhaAtual = 0;
+
+    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+        if (linhaAtual == id) {
+            char universidadeTemp[100];
+            char estadoNascimentoTemp[100];
+
+            memset(universidadeTemp, 0, sizeof(universidadeTemp));
+
+            int camposLidos = sscanf(linha, "%d,%[^,],%d,%d,%[^,],%d,%[^,],%[^\n]",
+                   &jogador->id, jogador->nome, &jogador->altura, &jogador->peso,
+                   universidadeTemp, &jogador->anoNascimento,
+                   jogador->cidadeNascimento, estadoNascimentoTemp);
+
+            // Verifica e preenche campos vazios com "nao informado"
+            if (camposLidos >= 5 && strlen(universidadeTemp) == 0) {
+                strcpy(jogador->universidade, "nao informado");
+            } else {
+                strncpy(jogador->universidade, universidadeTemp, sizeof(jogador->universidade));
+                jogador->universidade[sizeof(jogador->universidade) - 1] = '\0';
+            }
+
+            if (camposLidos >= 6 && strlen(estadoNascimentoTemp) == 0) {
+                strcpy(jogador->estadoNascimento, "nao informado");
+                strcpy(jogador->cidadeNascimento, "nao informado");
+            } else {
+                strncpy(jogador->estadoNascimento, estadoNascimentoTemp, sizeof(jogador->estadoNascimento));
+                jogador->estadoNascimento[sizeof(jogador->estadoNascimento) - 1] = '\0';
+            }
+
+            fclose(arquivo);
+            return;
+        }
+        linhaAtual++;
+    }
+
+    fclose(arquivo);
+}
+
+// Função para clonar um jogador
+struct Jogador Clone(struct Jogador jogador) {
+    struct Jogador clone;
+    clone.id = jogador.id;
+    strcpy(clone.nome, jogador.nome);
+    clone.altura = jogador.altura;
+    clone.peso = jogador.peso;
+    clone.anoNascimento = jogador.anoNascimento;
+    strcpy(clone.universidade, jogador.universidade);
+    strcpy(clone.cidadeNascimento, jogador.cidadeNascimento);
+    strcpy(clone.estadoNascimento, jogador.estadoNascimento);
+    return clone;
+}
+
+int main() {
+    struct Jogador jogador;
+    char linha[100];
+
+    while (1) {
+        fgets(linha, sizeof(linha), stdin);
+
+        if (strcmp(linha, "FIM\n") == 0) {
+            break;
+        }
+
+        int id = atoi(linha) + 1;
+        Ler(&jogador, id);
+        Imprimir(jogador);
+    }
+
+    return 0;
+}
