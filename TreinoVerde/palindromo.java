@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-class palindromoQ1 {
+class palindromo {
 
     //função para inverter a string recebida
     public static int inverteString(String palavra) {
@@ -40,5 +40,7 @@ class palindromoQ1 {
                 System.out.println("NAO");
             }
         } while (isFim(palavra) == false);
+
+        sc.close();
     }
 }

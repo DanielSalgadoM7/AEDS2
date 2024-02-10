@@ -4,7 +4,7 @@
 
 import java.util.Scanner;
 
-public class parImpar {
+public class parOuImpar {
 
     public static void main(String[] args) {
         int num;
@@ -23,6 +23,8 @@ public class parImpar {
                 System.out.println("I");
             }
         }while(num != 0);
+
+        sc.close();
     }
     
 }
