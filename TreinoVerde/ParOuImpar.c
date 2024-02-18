@@ -1,4 +1,4 @@
-// Ler números até encontrar 0.
+// Ler números até encontrar 0. 
 
 // Daniel Salgado Magalhães - 821429
 
