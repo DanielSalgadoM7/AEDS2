@@ -4,7 +4,7 @@
 
 import java.util.Scanner;
 
-public class parOuImpar {
+public class ParOuImpar {
 
     public static void main(String[] args) {
         int num;
