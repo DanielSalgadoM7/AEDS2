@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-class palindromo {
+class Palindromo {
 
     //função para inverter a string recebida
     public static int inverteString(String palavra) {
