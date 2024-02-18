@@ -49,5 +49,7 @@ class Lab01Q1Aquecimento {
         for (int i = 0; i < numEntrada - 1 ; i++) {
             System.out.println(contMaiuscula(palavra[i]));
         }
+
+        sc.close();
     }
 }
