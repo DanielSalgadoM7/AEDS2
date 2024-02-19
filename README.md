@@ -1,5 +1,5 @@
 # AEDS2
-Repositório para projetos utilizados nas aulas de AEDS 2
+Repositório para projetos utilizados nas aulas de AEDS 2, disciplina que ensina: Somatórios, Fundamentos de análise de algoritmos, Ordenação e pesquisa em memória principal, Tipos abstratos de dados lineares e flexíveis, Árvores e Balanceamento de árvores. 
 
 Todos os pedidos que o problema solicita estão escritos antes do código, como uma anotação.
 
