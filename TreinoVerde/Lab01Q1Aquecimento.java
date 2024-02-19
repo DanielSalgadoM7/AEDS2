@@ -20,8 +20,7 @@ class Lab01Q1Aquecimento {
         return (letra >= 'A' && letra <= 'Z');
     }
 
-    // função para contar as letras maiúsculas, percorre cada letra da palavra,
-    // chamando a função isMaiscula
+    // função para contar as letras maiúsculas, percorre cada letra da palavra, chamando a função isMaiscula
     public static int contMaiuscula(String entrada) {
         int cont = 0;
 
