@@ -17,7 +17,10 @@ class Lab01Q1Aquecimento {
 
     // função para determinar se a letra é maiúscula
     public static boolean isMaiscula(char letra) {
-        return (letra >= 'A' && letra <= 'Z');
+        if(letra >= 'A' && letra <= 'Z'){
+            return true;
+        } 
+        return false;
     }
 
     // função para contar as letras maiúsculas, percorre cada letra da palavra, chamando a função isMaiscula
