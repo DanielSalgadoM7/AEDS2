@@ -35,4 +35,4 @@ int main() {
     printf("%d\n", ContarMaiuscula(palavra[i]));
   }
   return 0;
-}
+} 
