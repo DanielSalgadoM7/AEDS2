@@ -47,7 +47,7 @@ class Lab01Q1Aquecimento {
             palavra[numEntrada] = sc.nextLine();
         } while (isFim(palavra[numEntrada++]) == false);
 
-        //como estava contando a quantidade de letras do FIM e imprimindo também, adicionei um -1 no for
+        //como estava contando a quantidade de letras do FIM, adicionei -1 no for, tirando a contagem dele
         for (int i = 0; i < numEntrada - 1 ; i++) {
             System.out.println(contMaiuscula(palavra[i]));
         }
