@@ -61,20 +61,19 @@ public class TP1Q06{
     public static boolean isReal(String entrada){
         int cont = 0;
         for(int i=0;i<entrada.length();i++){
-            if(!(entrada.charAt(i)>=48 && entrada.charAt(i)<=57) && entrada.charAt(i) != '.' || entrada.charAt(i) != ','){
+            if(!((entrada.charAt(i)>=48 && entrada.charAt(i)<=57) || entrada.charAt(i) == ',' || entrada.charAt(i) == '.'))
                 return false;
-            }
             //após a verificação de que é um número de 0 a 9 ou '.' ou ',', ele confere se é um dos dos pontos e realiza o contador
-            if(entrada.charAt(i) == ',' || entrada.charAt(i) == '.'){
+            if(entrada.charAt(i) == ',' || entrada.charAt(i) == '.')
                 cont++;
-            }
+
         }
 
         //caso o contador seja maior que 1, a pontuação está errada no número, e ele não é real
-        if(cont>1){
-            return false; 
-        }
-        return true;
-    }
+        if (cont <= 1)
+            return true;
+        else
+            return false;
+    }   
 
 }
