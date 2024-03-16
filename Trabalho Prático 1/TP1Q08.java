@@ -9,16 +9,28 @@
 
 // Daniel Salgado Magalhães - 821429
 
-public class TP1Q08{
-    public static void main(String[] args){
-        int entradaNum = 0;
-        float valorLido = 0;
+import java.io.FileWriter;
+import java.io.IOException;
 
-        entradaNum = MyIO.readInt();
+public class TP1Q08 {
+    public static void main(String[] args) {
+        String nomeArquivo = "arquivo.txt";
 
-        for(int i=0;i<entradaNum;i++){
-            valorLido = MyIO.readFloat();
+        try {
+            // Cria um objeto FileWriter para escrever no arquivo
+            FileWriter arq = new FileWriter(nomeArquivo);
+
+            // Escreve números no arquivo de 1 a 10
+            for (int i = 1; i <= 10; i++) {
+                arq.write(String.valueOf(i) + "\n");
+            }
+
+            // Fecha o objeto FileWriter
+            arq.close();
+
+            System.out.println("Números escritos no arquivo com sucesso.");
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever números no arquivo: " + e.getMessage());
         }
-        
     }
 }
