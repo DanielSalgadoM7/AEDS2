@@ -9,28 +9,49 @@
 
 // Daniel Salgado Magalhães - 821429
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class TP1Q08 {
     public static void main(String[] args) {
-        String nomeArquivo = "arquivo.txt";
-
+        int valorN;
+        valorN = MyIO.readInt();
+        
         try {
-            // Cria um objeto FileWriter para escrever no arquivo
-            FileWriter arq = new FileWriter(nomeArquivo);
+            // Cria o arquivo
+            RandomAccessFile arq = new RandomAccessFile("arquivo.txt", "rw");
 
-            // Escreve números no arquivo de 1 a 10
-            for (int i = 1; i <= 10; i++) {
-                arq.write(String.valueOf(i) + "\n");
+            // Escreve números no arquivo
+            for (int i = 0; i < valorN; i++) {
+                double valorNum = MyIO.readDouble();
+                arq.writeDouble(valorNum);
             }
 
-            // Fecha o objeto FileWriter
+            // Fecha o arquivo
             arq.close();
 
-            System.out.println("Números escritos no arquivo com sucesso.");
+            // Reabre o arquivo para leitura de trás para frente
+            arq = new RandomAccessFile("arquivo.txt", "r");
+
+            // Obtém o tamanho do arquivo
+            long tamanho = arq.length();
+
+            // Lê e mostra os valores de trás para frente
+            for (long pos = tamanho - 8; pos >= 0; pos -= 8) {
+                arq.seek(pos);
+                double valorLido = arq.readDouble();
+                if (valorLido == (int) valorLido) {
+                    // Se o valor for um número inteiro, imprime como inteiro
+                    MyIO.println((int) valorLido);
+                } else {
+                    // Se tiver ponto, vai imprimir como double
+                    MyIO.println(valorLido);
+                }
+            }
+
+            // Fecha o arquivo novamente
+            arq.close();
         } catch (IOException e) {
-            System.err.println("Erro ao escrever números no arquivo: " + e.getMessage());
+            System.err.println("Erro de E/S: " + e.getMessage());
         }
     }
 }
