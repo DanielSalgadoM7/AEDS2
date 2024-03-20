@@ -29,43 +29,54 @@ A segunda, terceira e quarta linha contém, respectivamente, o nome e idade do d
 
  //Daniel Salgado Magalhães - 821429
 
- #include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
- int main(){
-    int idade[100], lider1 = 0, lider2 = 0, entregador1 = 0, entregador2 = 0, piloto1 = 0, piloto2 = 0;
-    int qntDuende = 0, i = 0, temp = 0;
-    scanf("%d", &qntDuende);
-    int nome[qntDuende][1000];
+void swap(char** s1, char** s2){
+    char* temp = *s1;
+    *s1 = *s2;
+    *s2 = temp;
+}
 
-    for(i=0;i<qntDuende;i++){
-        scanf(" %[^\n\r]", nome[i]);
-        /*for(int pos=0;pos<nome[i];pos++){
-            if(pos.equals(" ")){
-                idade[pos] = nome[pos+1];
-            }
-        }*/
-        if(idade[i] > idade[i + 1]){
-            temp = idade[i];
-            idade[i] = idade[i+1];
-            idade[i+1] = temp;
-        }
-        piloto2 = idade[0];
-        piloto1 = idade[1];
-        entregador2 = idade[2];
-        entregador1 = idade[3];
-        lider2 = idade[4];
-        lider1 = idade[5];
+int main(){
+    int n;
+    scanf("%d",&n);
+    int idade;
+    char nome[20];
+    int arrayIdade[n];
+    char** arrayNomes = (char*)malloc(sizeof(char)*n);
+
+    for(int i = 0; i<n; i++){
+        scanf("%s %d",nome,&idade);
+        arrayNomes[i] = (char*)malloc(sizeof(char)*strlen(nome)+1);
+        strcpy(arrayNomes[i],nome);
+        arrayIdade[i] = idade;
     }
 
-    
+    for(int j = 0; j<n-1; j++){
+        int menor = j;
+        for(int i = j+1; i<n; i++){
+            if(arrayIdade[menor]>arrayIdade[i]){
+                menor = i;
+            }
+        }
+        int temp = arrayIdade[menor];
+        arrayIdade[menor] = arrayIdade[j];
+        arrayIdade[j] = temp;
+        swap(&arrayNomes[menor],&arrayNomes[j]); 
+    }
+    int index = n-1;
+    int count = 1;
+    for(int i = n; i>0; i/=3){
+        printf("Time %d\n",count++);
+        for(int j = index;j>= 0;j -= 2){
+            printf("%s %d\n",arrayNomes[j],arrayIdade[j]);
+            
+        }
+        printf("\n");
+        index--;
+    }
 
-    printf("Time 1\n");
-    printf("%s\n", nome[5]);
-    printf("%s\n", nome[3]);
-    printf("%s\n", nome[1]);
-    printf("\nTime 2\n");
-    printf("%s\n", nome[4]);
-    printf("%s\n", nome[2]);
-    printf("%s\n", nome[0]);
 
- }
+}
